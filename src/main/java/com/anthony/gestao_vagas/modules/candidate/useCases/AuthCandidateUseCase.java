@@ -1,8 +1,8 @@
 package com.anthony.gestao_vagas.modules.candidate.useCases;
 
-import com.anthony.gestao_vagas.modules.candidate.Dto.AuthCandidateRequestDTO;
-import com.anthony.gestao_vagas.modules.candidate.Dto.AuthCandidateResponseDTO;
-import com.anthony.gestao_vagas.modules.candidate.Repository.CandidateRepository;
+import com.anthony.gestao_vagas.Dto.AuthCandidateRequestDTO;
+import com.anthony.gestao_vagas.Dto.AuthCandidateResponseDTO;
+import com.anthony.gestao_vagas.Repository.CandidateRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class AuthCandidateUseCase {
         var token = JWT.create()
                 .withIssuer("gestao-vagas")
                 .withSubject(candidate.getId().toString())
-                .withClaim("roles" , Arrays.asList("candidate"))
+                .withClaim("roles" , Arrays.asList("CANDIDATE"))
                 .withExpiresAt(expiresIn)
                 .sign(algorithm);
 

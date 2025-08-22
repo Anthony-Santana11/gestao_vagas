@@ -1,4 +1,4 @@
-package com.anthony.gestao_vagas.modules.candidate.Dto;
+package com.anthony.gestao_vagas.Dto;
 
 
 import lombok.AllArgsConstructor;

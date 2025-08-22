@@ -1,7 +1,7 @@
-package com.anthony.gestao_vagas.modules.candidate.Controllers;
+package com.anthony.gestao_vagas.Controllers;
 
 
-import com.anthony.gestao_vagas.modules.candidate.Dto.AuthCompanyDTO;
+import com.anthony.gestao_vagas.Dto.AuthCompanyDTO;
 import com.anthony.gestao_vagas.modules.candidate.useCases.AuthCompanyUseCases;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/company")
 public class AuthCompanyController {
     @Autowired
     private AuthCompanyUseCases authCompanyUseCases;
 
-    @PostMapping("/company")
+    @PostMapping("/auth")
     public ResponseEntity<Object> create (@RequestBody AuthCompanyDTO authCompanyDTO) {
         try {
             var result = this.authCompanyUseCases.execute(authCompanyDTO);

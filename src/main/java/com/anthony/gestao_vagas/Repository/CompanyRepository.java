@@ -1,6 +1,6 @@
-package com.anthony.gestao_vagas.modules.candidate.Repository;
+package com.anthony.gestao_vagas.Repository;
 
-import com.anthony.gestao_vagas.modules.candidate.Entity.CompanyEntity;
+import com.anthony.gestao_vagas.Entity.CompanyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,17 +1,18 @@
 package com.anthony.gestao_vagas.modules.candidate.useCases;
 
-import com.anthony.gestao_vagas.modules.candidate.Dto.AuthCompanyDTO;
-import com.anthony.gestao_vagas.modules.candidate.Repository.CompanyRepository;
+import com.anthony.gestao_vagas.Dto.AuthCompanyDTO;
+import com.anthony.gestao_vagas.Dto.AuthCompanyResponseDTO;
+import com.anthony.gestao_vagas.Repository.CompanyRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.security.sasl.AuthenticationException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 
 @Service
 public class AuthCompanyUseCases {
@@ -24,7 +25,7 @@ public class AuthCompanyUseCases {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    public String execute (AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
+    public AuthCompanyResponseDTO execute (AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
         var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(
                 () -> new RuntimeException("Username/company not found"));
 
@@ -37,11 +38,21 @@ public class AuthCompanyUseCases {
 
        // if it's correct, generate a token
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
+
+        var expiresIn = Instant.now().plus(Duration.ofHours(2));
+
         var token = JWT.create().withIssuer("gestao-vagas")
-                .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
+                .withClaim("roles", Arrays.asList("COMPANY"))
+                .withExpiresAt(expiresIn)
                 .withSubject(company.getId().toString())
                 .sign(algorithm);
-        return token;
+
+       var authCompanyResponseDTO =  AuthCompanyResponseDTO.builder()
+                .access_token(token)
+                .expires_in(expiresIn.toEpochMilli())
+                .build();
+
+        return authCompanyResponseDTO;
     }
 
 

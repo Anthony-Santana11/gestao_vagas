@@ -5,13 +5,18 @@ import com.anthony.gestao_vagas.Repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class CreateJobUseCase {
+public class ListAllJobsByFilterUseCase {
+
 
     @Autowired
     private JobRepository jobRepository;
-    public JobEntity execute(JobEntity jobEntity) {
-       return this.jobRepository.save(jobEntity);
-    }
 
+    public List<JobEntity> execute (String description) {
+
+      return this.jobRepository.findByDescriptionContainingIgnoreCase(description);
+
+    }
 }

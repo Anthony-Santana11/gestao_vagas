@@ -1,7 +1,6 @@
 package com.anthony.gestao_vagas.Security;
 
-
-import com.anthony.gestao_vagas.Providers.JWTProvider;
+import com.anthony.gestao_vagas.Providers.JWTCandidateProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,49 +11,53 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import java.io.IOException;
 import java.util.Collections;
 
-
 @Component
-public class SecurityFilter extends OncePerRequestFilter {
+public class SecurityCandidateFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JWTProvider jwtProvider;
+    private JWTCandidateProvider jwtCandidateProvider;
+    @Autowired
+    private HttpServletResponse httpServletResponse;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request , HttpServletResponse response , FilterChain filterChain)
-        throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response , FilterChain filterChain)
+    throws ServletException, IOException {
+
 //        SecurityContextHolder.getContext().setAuthentication(null);
         String header = request.getHeader("Authorization");
 
 
-        if (request.getRequestURI().startsWith("/company")) {
+        if (request.getRequestURI().startsWith("/candidate")) {
             if (header != null) {
-                var token = this.jwtProvider.validateToken(header);
-                if (token == null) {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                var token =    this.jwtCandidateProvider.validateToken(header);
+
+                if (token == null ) {
+                    response.setStatus(httpServletResponse.SC_UNAUTHORIZED);
                     return;
                 }
 
+                request.setAttribute("candidate_id", token.getSubject());
                 var roles = token.getClaim("roles").asList(String.class);
-                var grants = roles.stream()
-                                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()))
-                                        .toList();
 
+               var grants =  roles.stream()
+                        .map(
+                                role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())
+                        )
+                       .toList();
 
-                request.setAttribute("company_id", token.getSubject());
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                      token.getSubject()  ,null, grants);
+                        token.getSubject(),null, grants);
                 SecurityContextHolder.getContext().setAuthentication(auth);
 
-
-
             }
+
         }
 
-        filterChain.doFilter(request, response);
 
-}
-
+        filterChain.doFilter(request,response);
+    }
 }

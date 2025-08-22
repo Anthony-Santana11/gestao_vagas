@@ -1,4 +1,4 @@
-package com.anthony.gestao_vagas.modules.candidate.Entity;
+package com.anthony.gestao_vagas.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

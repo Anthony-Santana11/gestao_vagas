@@ -1,7 +1,7 @@
 package com.anthony.gestao_vagas.modules.candidate.useCases;
 
-import com.anthony.gestao_vagas.modules.candidate.Dto.ProfileCandidateResponseDTO;
-import com.anthony.gestao_vagas.modules.candidate.Repository.CandidateRepository;
+import com.anthony.gestao_vagas.Dto.ProfileCandidateResponseDTO;
+import com.anthony.gestao_vagas.Repository.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

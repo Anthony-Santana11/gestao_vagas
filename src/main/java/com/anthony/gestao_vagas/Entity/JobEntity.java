@@ -1,5 +1,6 @@
-package com.anthony.gestao_vagas.modules.candidate.Entity;
+package com.anthony.gestao_vagas.Entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -23,12 +24,15 @@ public class JobEntity {
     private UUID id;
 
     private String title;
+    @Schema(example = "Vaga para Desenvolvedor Java Junior")
     private String description;
 
     @NotBlank(message = "Esse campo é Obrigatório")
+    @Schema(example = "JUNIOR")
     private String level;
 
     @NotBlank(message = "Esse campo é Obrigatório")
+    @Schema(example = "Gym Pass, Plano de saúde, Vale Refeição")
     private String benefits;
 
     @ManyToOne

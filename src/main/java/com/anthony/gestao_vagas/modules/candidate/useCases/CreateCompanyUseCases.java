@@ -1,7 +1,7 @@
 package com.anthony.gestao_vagas.modules.candidate.useCases;
 
-import com.anthony.gestao_vagas.modules.candidate.Entity.CompanyEntity;
-import com.anthony.gestao_vagas.modules.candidate.Repository.CompanyRepository;
+import com.anthony.gestao_vagas.Entity.CompanyEntity;
+import com.anthony.gestao_vagas.Repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

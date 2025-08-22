@@ -1,7 +1,7 @@
-package com.anthony.gestao_vagas.modules.candidate.Exceptions;
+package com.anthony.gestao_vagas.Exceptions;
 
 
-import com.anthony.gestao_vagas.modules.candidate.Dto.ErrorMessageDTO;
+import com.anthony.gestao_vagas.Dto.ErrorMessageDTO;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;

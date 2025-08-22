@@ -1,7 +1,7 @@
-package com.anthony.gestao_vagas.modules.candidate.Controllers;
+package com.anthony.gestao_vagas.Controllers;
 
-import com.anthony.gestao_vagas.modules.candidate.Entity.CompanyEntity;
-import com.anthony.gestao_vagas.modules.candidate.Exceptions.UserFoundException;
+import com.anthony.gestao_vagas.Entity.CompanyEntity;
+import com.anthony.gestao_vagas.Exceptions.UserFoundException;
 import com.anthony.gestao_vagas.modules.candidate.useCases.CreateCompanyUseCases;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
