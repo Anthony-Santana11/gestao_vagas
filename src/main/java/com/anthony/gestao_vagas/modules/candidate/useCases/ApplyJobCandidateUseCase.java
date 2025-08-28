@@ -1,6 +1,7 @@
 package com.anthony.gestao_vagas.modules.candidate.useCases;
 
 
+import com.anthony.gestao_vagas.Entity.ApplyJobEntity;
 import com.anthony.gestao_vagas.Exceptions.JobNotFoundException;
 import com.anthony.gestao_vagas.Exceptions.UserNotFoundException;
 import com.anthony.gestao_vagas.Repository.ApplyJobRepository;
@@ -23,7 +24,7 @@ public class ApplyJobCandidateUseCase {
     @Autowired
     private ApplyJobRepository applyJobRepository;
 
-    public void execute (UUID idCandidate , UUID idJob) {
+    public ApplyJobEntity execute (UUID idCandidate , UUID idJob) {
         this.candidateRepository.findById(idCandidate)
                 .orElseThrow( () -> {
                     throw new UserNotFoundException();
@@ -33,6 +34,10 @@ public class ApplyJobCandidateUseCase {
             .orElseThrow( () -> {
                 throw new JobNotFoundException();
             });
+
+        var applyJob = ApplyJobEntity.builder().idCandidate(idCandidate).idJob(idJob).build();
+        applyJob = applyJobRepository.save(applyJob);
+        return applyJob;
 
     }
 
