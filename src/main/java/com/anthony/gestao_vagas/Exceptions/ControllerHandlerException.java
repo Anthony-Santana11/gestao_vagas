@@ -16,12 +16,12 @@ import java.util.List;
 
 
 @ControllerAdvice
-public class ExceptionHandlerController {
+public class ControllerHandlerException {
 
     private final View error;
     private MessageSource messageSource;
 
-    public ExceptionHandlerController(MessageSource messageSource, View error) {
+    public ControllerHandlerException(MessageSource messageSource, View error) {
         this.messageSource = messageSource;
         this.error = error;
     }

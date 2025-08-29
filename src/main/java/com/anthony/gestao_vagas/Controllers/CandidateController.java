@@ -2,6 +2,7 @@ package com.anthony.gestao_vagas.Controllers;
 
 
 import com.anthony.gestao_vagas.Dto.ProfileCandidateResponseDTO;
+import com.anthony.gestao_vagas.Entity.ApplyJobEntity;
 import com.anthony.gestao_vagas.Entity.CandidateEntity;
 import com.anthony.gestao_vagas.Entity.JobEntity;
 import com.anthony.gestao_vagas.modules.candidate.useCases.ApplyJobCandidateUseCase;
@@ -104,10 +105,9 @@ public class CandidateController {
     @Operation (summary = "Apply Job for Candidates", description = "This endpoint allows candidates to apply for jobs based on a description filter.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
-                    @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)))
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = ApplyJobEntity.class)))
             })
     })
-    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> applyJob(HttpServletRequest request, @RequestBody UUID idJob) {
         var idCandidate = request.getAttribute("candidate_id");
 
