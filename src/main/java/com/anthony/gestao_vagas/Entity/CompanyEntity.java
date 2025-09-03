@@ -6,7 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
@@ -16,6 +19,9 @@ import java.util.UUID;
 @Entity(name = "company")
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CompanyEntity {
 
     @Id
@@ -40,7 +46,7 @@ public class CompanyEntity {
     private String  name;
 
     @NotBlank
-    @Length( min = 100, max = 500, message = "A descrição deve ter entre 100 e 500 caracteres")
+    @Length( min = 30, max = 500, message = "A descrição deve ter entre 100 e 500 caracteres")
     private String description;
 
     @CreationTimestamp
