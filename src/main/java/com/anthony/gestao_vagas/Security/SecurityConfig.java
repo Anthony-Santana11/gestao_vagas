@@ -21,11 +21,12 @@ public class SecurityConfig {
     @Autowired
     private SecurityCandidateFilter securityCandidateFilter;
 
-    private static final String[] SWAGGER_WHITELIST = {
+    private static final String[] URL_WHITELIST = {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/swagger-resources/**",
+            "/actuator/**"
     };
 
     @Bean
@@ -35,7 +36,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/candidate/").permitAll()
                     .requestMatchers(("/company/")).permitAll()
                     .requestMatchers("/company/auth").permitAll()
-                    .requestMatchers(SWAGGER_WHITELIST).permitAll();
+                    .requestMatchers(URL_WHITELIST).permitAll();
                     auth.requestMatchers("/candidate/auth").permitAll();
                     auth.anyRequest().authenticated();
 
