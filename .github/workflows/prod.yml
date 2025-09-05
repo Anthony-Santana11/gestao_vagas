@@ -1,32 +1,37 @@
-name : Gestao de Vagas Application
+name: Gestao de Vagas Application
 
 on:
   push:
     branches: [main]
 
-jobs :
-    - name: Fix apt sources
-      run: |
-        sudo sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.ufscar.br/ubuntu/|g' /etc/apt/sources.list
-        sudo sed -i 's|http://security.ubuntu.com/ubuntu/|http://mirror.ufscar.br/ubuntu/|g' /etc/apt/sources.list
-        sudo apt-get update
-
-build :
+jobs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Fix apt sources
+        run: |
+          sudo sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.ufscar.br/ubuntu/|g' /etc/apt/sources.list
+          sudo sed -i 's|http://security.ubuntu.com/ubuntu/|http://mirror.ufscar.br/ubuntu/|g' /etc/apt/sources.list
+          sudo apt-get update
+
       - name: Checkout code
         uses: actions/checkout@v4
-      - name : Setup Java
+
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
+
       - name: Build project
         run: mvn clean install
+
       - name: Login Docker
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and Push Docker Image
-        run : docker build -t anth00ny/api-gestao-vagas:latest .
+
+      - name: Build Docker Image
+        run: docker build -t anth00ny/api-gestao-vagas:latest .
+
       - name: Push Docker Image
-        run: docker push anth00ny/api-gestao-vagas
+        run: docker push anth00ny/api-gestao-vagas:latest
