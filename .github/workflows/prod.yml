@@ -24,7 +24,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        run: docker build -t anth00ny/api-gestao-vagas:latest .
+        run: docker build --network=host -t anth00ny/api-gestao-vagas:latest .
 
       - name: Push Docker Image
         run: docker push anth00ny/api-gestao-vagas:latest
