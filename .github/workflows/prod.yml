@@ -5,7 +5,13 @@ on:
     branches: [main]
 
 jobs :
-  build :
+    - name: Fix apt sources
+      run: |
+        sudo sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.ufscar.br/ubuntu/|g' /etc/apt/sources.list
+        sudo sed -i 's|http://security.ubuntu.com/ubuntu/|http://mirror.ufscar.br/ubuntu/|g' /etc/apt/sources.list
+        sudo apt-get update
+
+build :
     runs-on: ubuntu-latest
 
     steps:
